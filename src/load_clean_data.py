@@ -82,9 +82,9 @@ def extract_single_year_data(df):
     df_nonmedpain = opiod_df_wide_16[['nonmedpain', 'county_code']].copy()
 
     #merge all these data into one df
-    merge_df = df_num_SSP.copy()
-    for dataframe in [df_bup_phys, df_drugdep, df_pctunmetneed, df_nonmedpain]:
-        merge_df.merge(dataframe, on='county_code')
+    merge_df = df_num_SSP.merge(df_bup_phys, on='county_code')
+    for dataframe in [df_drugdep, df_pctunmetneed, df_nonmedpain]:
+        merge_df = merge_df.merge(dataframe, on='county_code')
 
     return merge_df
 
@@ -98,9 +98,9 @@ def make_amfar_df(subset_year):
     df = load_amfar_data() #load cleaned/reshaped amfar dataframe
     subset_year_df = subset_amfar_df(df, subset_year) #subset year of interest
     single_year_df = extract_single_year_data(df) #extract single year data
-    subset_year_df.merge(single_year_df, on='county_code') #merge subset and single year
+    merge_df = subset_year_df.merge(single_year_df, on='county_code') #merge subset and single year
 
-    return subset_year_df
+    return merge_df
 
 def make_acs_df():
     '''
@@ -153,9 +153,9 @@ def make_acs_df():
                   'perc_25_34',
                   'perc_35_44'], axis=1, inplace=True) #drop old columns
     #merge these data
-    merge_df = df_employment.copy()
-    for dataframe in [df_poverty, df_income, df_demo]:
-        merge_df.merge(dataframe, on='county_code')
+    merge_df = df_employment.merge(df_poverty, on='county_code')
+    for dataframe in [df_income, df_demo]:
+        merge_df = merge_df.merge(dataframe, on='county_code')
 
     return merge_df
 
@@ -193,13 +193,13 @@ def load_all_data(year):
     OUTPUT: pandas dataframe  (one dataframe to rule them all!)
     '''
     # load the three dataframes
-    final_df = make_amfar_df(year)
+    amfar_df = make_amfar_df(year)
     acs_df = make_acs_df()
     msm_df = load_msm_df()
 
     #merge into one final dataframe
-    final_df.merge(acs_df, on='county_code')
-    final_df.merge(msm_df, on='county_code')
+    final_df = amfar_df.merge(acs_df, on='county_code')
+    final_df = final_df.merge(msm_df, on='county_code')
 
     return final_df
 
