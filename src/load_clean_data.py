@@ -203,6 +203,9 @@ def load_all_data(year):
 
     return final_df
 
+
+
+
 if __name__ == '__main__':
     amfar_df = load_amfar_data()
     print(amfar_df.shape)
