@@ -127,6 +127,7 @@ def make_acs_df():
     df_income = pd.read_csv("data/ACS_14_5YR_income/ACS_14_5YR_S1901_with_ann.csv", encoding = "ISO-8859-1", skiprows=1)
     df_income = df_income[['Id2', 'Households; Estimate; Total']]
     df_income.columns = ['county_code', 'household_income'] #rename columns
+    df_income['log_household_income'] = np.log10(df_income.household_income)
 
     #demographic data
     df_demo = pd.read_csv("data/ACS_14_5YR_age_sex_race/ACS_14_5YR_DP05_with_ann.csv",
