@@ -9,12 +9,22 @@ import load_clean_data as load
 
 
 def score_model(data, model_list, features, target_col):
+    '''
+    This scores a list of models for their criterion score (AIC or BIC)
+    INPUT: data - pandas dataframe
+           model_list - list of instanciated models
+           features - list of strings that match column names
+           target_col - string that matches the target column name
+
+    OUTPUT: List containing feature names, and scores for each model
+    '''
+
     # define and scale the feature matrix
     X = data[features].values
     scaler = StandardScaler()
     X = scaler.fit_transform(X)
     # define the target vector
-    y = df_no_zero_outlier.HIVincidence.values
+    y = df_no_zero_outlier[target_col].values
 
     # iterate the list of models to populate the score vector
     score = [features]
@@ -26,7 +36,16 @@ def score_model(data, model_list, features, target_col):
 
 
 def model_selection(data, features_list, target_col):
-    # Instanciate the models for bic and aic scoring
+    '''
+    This model instantiates a number of lasso regression models with different
+    features and returns the BIC and AIC scores for each model.
+    INPUT: data - pandas dataframe
+           features_list  - a list of a list of strings that match column names
+           target_col - string that matches the target column name
+    OUTPUT: pandas dataframe containing features used with their BIC/AIC scores
+    '''
+
+    # instantiate the models for bic and aic scoring
     model_bic = LassoLarsIC(criterion='bic')
     model_aic = LassoLarsIC(criterion='aic')
     model_lst = [model_bic, model_aic]
