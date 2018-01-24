@@ -6,5 +6,17 @@ Due to the development of anti-retroviral therapies the HIV/AIDS epidemic is gen
 A model that can accurately forecast regional HIV infection rates would be beneficial to local public health officials.  Provided with this information, these officials will be able to better marshal the resources necessary to combat HIV and prevent outbreaks from occurring.  Accurate modeling will also identify risk factors for communities with high HIV infection rates and provide clues as to how officials may better combat HIV in their respective communities.
 
 ## Project Goal
-1)	To accurately forecast the HIV infection rates in US counties by building a mulilevel model that utilizes HIV infection data, census data, data on the opioid crisis, and data on sexual orientation.
+1)	To accurately forecast the HIV infection rates in US counties by building a multilevel model that utilizes HIV infection data, census data, data on the opioid crisis, and data on sexual orientation.
+
 2)	Identify features that are the most significant drivers of HIV infection rates and learn how these drivers differ between rural, suburban and urban counties
+
+## About the Data
+
+### Sources
+Data was obtained from four sources for this project.  
+1. The largest collection of HIV and opioid data was obtained from the [opioid database](http://opioid.amfar.org/) maintained by the American Foundation for AIDS Research (amfAR).  
+2. Additional HIV data was gathered from the datasets maintained by the [AIDSVu](https://aidsvu.org/resources/downloadable-maps-and-resources/).  
+3. Demographic and economic data were obtained from the 5yr - American Community Survey which are available at the [US census bureau website](https://factfinder.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t).
+4. Estimates for the [MSM population](http://emorycamp.org/item.php?i=48) in each county were obtained from the Emory Coalition for Applied Modeling for Prevention (CAMP).
+
+### Methods
