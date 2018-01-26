@@ -25,7 +25,10 @@ Data were manipulated prior to analysis in the following ways:
 1. State and county codes were merged in datasets were they were separated so they could be used later to merge dataframes together.
 2. To simplify the intitial analysis, data was restricted to the year 2015.
 3. Counties in which HIV incidence data were suppressed (counties with 0-4 new HIV diagnoses) in 2015 were removed from the dataset.  This resulted in a dataset containing 747 counties.
-4. Data from Scott County, Indiana was removed from the dataset.  This small rural county experienced an HIV outbreak in 2014-2015 due to IV drug use.  This county was an obvious outlier in the data and was likely to function as a high leverage point that would skew the regression models.
+4. Data from Scott County, Indiana was removed from the dataset.  This small rural county experienced an HIV outbreak in 2014-2015 due to IV drug use.  This county was an obvious outlier in the data and made it difficult to image all data in a plot.
+![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/outlier_removal_plot.png)
+##### Figure 1: Removal of the Scott County, IN outlier data
+
 5. The total number of MSM-12months and MSM-5years in counties were transformed into percentages of the adult male population for each county.
 6. The percentages for the 20-24 population, the 25-34 population, and the 35-44 population were combined into a percentage for the 20-44 population.
 7. Household income data was log transformed.
