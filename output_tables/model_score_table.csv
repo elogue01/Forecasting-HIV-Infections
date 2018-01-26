@@ -1,0 +1,4 @@
+,Model,WAIC Score,LOO Score,RMSE
+0,Pooled Model,5143.71,5149.12,7.48
+1,Unpooled Model,5295.42,5304.53,7.15
+2,Multilevel Model,5066.49,5092.1,6.3
