@@ -27,10 +27,13 @@ Data were manipulated prior to analysis in the following ways:
 3. Counties in which HIV incidence data were suppressed (counties with 0-4 new HIV diagnoses) in 2015 were removed from the dataset.  This resulted in a dataset containing 747 counties.
 4. Data from Scott County, Indiana was removed from the dataset.  This small rural county experienced an HIV outbreak in 2014-2015 due to IV drug use.  This county was an obvious outlier in the data and made it difficult to image all data in a plot.
 ![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/outlier_removal_plot.png)
-##### Figure 1: Removal of the Scott County, IN outlier data
+#### Figure 1: HIV incidence vs HIV prevalence data with and without the removal of suppressed counties and the Scott County, IN outlier data
 
 5. The total number of MSM-12months and MSM-5years in counties were transformed into percentages of the adult male population for each county.
 6. The percentages for the 20-24 population, the 25-34 population, and the 35-44 population were combined into a percentage for the 20-44 population.
 7. Household income data was log transformed.
 
 ## Exploratory Data Analysis
+Exploratory data analysis was performed on the dataset to identify the features were most promising for use in a multiple linear regression model. This analysis also identified features that would benefit from a transformation of their data.  The following text summarizes the data analysis that was perform. The reader can find a fuller picture of the exploratory data analysis in the [EDA-presentation.ipynb](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/EDA-presentation.ipynb) jupyter notebook.
+
+### Identifying features with linear relationship to HIV prevalence.
