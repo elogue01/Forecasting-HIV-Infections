@@ -40,3 +40,9 @@ Exploratory data analysis was performed on the dataset to identify the features 
 After cleaning and merging our different data sources there were 42 features to be explored in our dataframe.  Initial analysis focused on finding features that appeared to have a linear relationship with HIV incidence.  Pair plots and joint plots were used to identified five features (HIV prevalence, % African American, % White, % of Population Uninsured, and Poverty Rate) where a linear relationship to HIV incidence looked likely. Furthermore, spearman correlations for each of these features indicated moderate positive or negative correlation with HIV incidence.
 ![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/high_corr_features)
 #### Figure 2: Five features showed moderate correlation with HIV incidence and appear to be linearly related.
+
+In addition to these features with a stronger correlation to HIV incidence, we also identified four features (Household Income (log transformed), % Unmet Drug Treatment Need, % Drug Dependent, % of Nonmedical Pain Reliever Use) that show significant though low level correlation with HIV incidence.  These features include three features associated with opioid use and a closer look at these figures indicate that while these features may not be linearly related for to all US counties, it is possible that there is the potential that they will have a linear relationship to a subset of counties.  The log 
+
+
+![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/lower_corr_features)
+#### Figure 3: Features associated with opioid use and household income showed significant though loww level correlation with HIV incidence.
