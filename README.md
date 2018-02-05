@@ -59,12 +59,57 @@ After identifying features that appeared to have a linear relationship to HIV in
 
 In total there were 22 feature combinations that were tested.  The BIC scoring suggested that a model using HIV prevalence, % of the population that is African American, % of the population that is uninsured, and the log of household income is the preferred model.  The AIC score differs in its assessment of the models as the addition of more features further lowered the model scores in this assessment.  This discrepancy was likely due to the fact that the BIC score more heavily penalizes the model complexity than the AIC scoring.  The simpler four feature model was ultimately selected for further evaluation using a Bayesian approach to building a linear regression model.
 
+This four feature model resulted in a linear regression with the intercept at 16.0, a coefficient for the HIV prevelance variable of 6.6, a coefficient for the % African American variable of 4.1, a coefficient for the % uninsured variable of 2.4, and a coefficient for the log household income variable of -1.8.  This tells us that HIV prevelance is the strongest positive driver of HIV incidence in US counties, followed by the percentage of the population that is African American and the percentage of the population that lacks health insurance.  The negative coefficient for the household income variable suggests that HIV incidence are decreased in response to the increased wealth of a county.  These coefficients are informative as to the factors that drive HIV incidence in US counties and are consistent with the knowledge that the HIV epidemic is impacting communities of color and lower socioeconomic status to a larger extent than other communities in the US. However, one draw back to this model is that the we can not assign any level of confidence to the coefficient values delivered by this model and I therefore cannot say that HIV prevelance variable has a greater impact on HIV incidence than the % African American variable beyond some level of certainty.  We are also unable to take into account regional differences in the way that these variables are impacting HIV incidence levels.  In the following sections I will take a Bayesian approach to building the linear regression model in order to alleviate some of these issues.
+
 ![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/model_selection_table.png)
 #### Figure 5: Feature combinations in Lasso regression models were scored using AIC and BIC.
 
 ### Building Bayesian Models
-After building a Lasso linear regression model above, I sought to take the linear regression model into the Bayesian world.  In contrast to the standard frequentist approach that I used above, a Bayesian approach will result in a linear regression model where the coefficients are probability distributions rather than point values.  One key value to this approach is that confidence intervals can be assigned to the coefficients having particular values.  This allows for hypothesis testing with these coefficients.  For instance we can determine if the value of a coefficient is significantly greater than or less than zero.
+After building a Lasso linear regression model above, I sought to take the linear regression model into the Bayesian world.  In contrast to the standard frequentist approach that I used above, a Bayesian approach results in a linear regression model where the coefficients are probability distributions rather than point values.  One key value to this approach is that confidence intervals can be assigned to the coefficients having particular values.  This allows for hypothesis testing with these coefficients.  For instance, we can determine if the value of a coefficient is significantly greater than or less than zero.
 
-I will be using PyMC3 to build three different Bayesian linear regression models.  The first model will be a pooled model which builds a single linear regression model for a all the counties in the US.  The second model will be an unpooled model in which a separate linear regression model is built for counties in each state.  The final model that will be built is a multi-layered model in which serves as a compromise between the other two model extremes.  In this multi-layered model there will still be separate models for each state, however, the coefficients in these models will be constrained by a hyper prior distribution. The effect of this nesting within a hyper prior will be to shrink these different coefficients back toward the global coefficient value. The multi-layered approach generally is the best approach for models that are using data with a regional quality to them.  After all counties in different states may be quit different from one another, however, there is also an inherent similarity for all counties in the US that should not be ignored.
+I used PyMC3 to build three different Bayesian linear regression models.  The first model was a pooled model, which builds a single linear regression model for a all the counties in the US.  The second model was an unpooled model in which a separate linear regression model was built for counties in each state.  The final model that was built was a multi-layered model, which serves as a compromise between the extremes of the other two models.  In this multi-layered model there were still separate models for each state, however, the coefficients in these models were constrained by a hyper prior distribution. The effect of this nesting within a hyper prior was to shrink these different coefficients back toward the global coefficient value. The multi-layered approach generally is the best approach for models that are using data with a regional quality to them.  After all counties in different states may be quit different from one another, however, there is also an inherent similarity for all counties in the US that should not be ignored.
 
 #### Pooled model
+A pooled linear model was built using the Generalized Linear Model (GLM) module in PyMC3.  The means for the resulting probability distributions for the intercept and variable coefficients were very similar to the point values for the coefficients I obtained using the Lasso model above.  However, with this Bayesian approach we can assign a probability to these coefficients having any particular value and we obtain a range in which the true coefficient value is likely to be contained. For example, we can now say with over 95% confidence that the coefficient for the HIV prevalence variable is between 5.5 and 7.5 while the coefficient for the % African American variable is between 3 and 5. Since these ranges do not overlap I can now say with high confidence that HIV prevalence has a greater impact on HIV incidence in US counties than the percentage of African Americans. However, I am still building one linear model for the entire US and cannot determine how these variables might impact regions of the US differently.
+
+![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/pooledmodel_traceplot.png)
+#### Figure 6: Probability distributions for coefficients in the pooled linear model.
+
+#### Unpooled model
+
+
+
+![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/unpooledmodel_traceplot.png)
+#### Figure 7: Probability distributions for coefficients in the unpooled linear model.
+
+#### Multi-level model
+
+![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/multimodel_traceplot.png)
+#### Figure 8: Probability distributions for coefficients in the multi-level linear model.
+
+### Model Evaluation
+
+![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/commit/20175d1450a7db06be458c865ab4c0a239141bfa)
+#### Figure 9: Comparison of WAIC, LOO, and RMSE scores for the pooled, unpooled, and multi-level models.
+
+### Model Interpretation
+
+#### HIV Prevalence
+
+![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/hiv_prev_forestplot.png)
+#### Figure 10: Comparison of coefficients for HIV prevalence across states.
+
+![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/prevalence_coeff_map.png)
+#### Figure 11: Mapping the mean coefficients for HIV prevalence across states.
+
+#### Percentage of population that is uninsured
+
+![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/perc_unins_coeff_trace.png)
+#### Figure 12: Highlighting coefficient probability distributions for states where the percent uninsured has a significant positive effect on HIV incidence.
+
+#### Household income
+
+![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/house_income_coeff_trace.png)
+#### Figure 13: Highlighting coefficient probability distributions for states where the household income has a significant positive or negative effect on HIV incidence.
+
+### Conclusions
