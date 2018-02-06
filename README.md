@@ -76,13 +76,13 @@ A pooled linear model was built using the Generalized Linear Model (GLM) module 
 #### Figure 6: Probability distributions for coefficients in the pooled linear model.
 
 #### Unpooled model
-
-
+In addition to the pooled model, I also built an unpooled model in which the intercept was allowed to vary for each state.  This model essentially builds a separate linear regression model for each state.  This is not a completely unpooled model, however, as the coefficients for the different variables remain the same for each state.  A completely unpooled model was attempted where the intercept and all coefficients were allowed to vary but a number of the  resulting posterior distributions looked as if they had failed to converge (data not shown).  Overall, the unpooled model approach is problematic since it allows regression models to be fit for states with 1-3 counties.  The counties in these states will have an outsized role in determining the linear regression model and will likely result in overfitting to the training data. Could there be a way to use the information from the global average (pooled model) while still building separate models for each state?
 
 ![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/unpooledmodel_traceplot.png)
 #### Figure 7: Probability distributions for coefficients in the unpooled linear model.
 
 #### Multi-level model
+Why yes there is a way question asker from the previous section.  Here I have built a multi-level model in which the intercepts and variable coefficients were nested under hyperprior distributions.  The result of adding this hyperprior layer was to shrink the resulting coefficients back toward the global mean for each parameter.  This shrinkage will be greater for the states with fewer counties providing data, preventing the coefficients from becoming too dependent on a small number of data points, and ultimately resulting in a more robust model.  In this model we see that the 
 
 ![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/multimodel_traceplot.png)
 #### Figure 8: Probability distributions for coefficients in the multi-level linear model.
