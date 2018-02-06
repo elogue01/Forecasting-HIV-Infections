@@ -82,14 +82,14 @@ In addition to the pooled model, I also built an unpooled model in which the int
 #### Figure 7: Probability distributions for coefficients in the unpooled linear model.
 
 #### Multi-level model
-Why yes there is a way question asker from the previous section.  Here I have built a multi-level model in which the intercepts and variable coefficients were nested under hyperprior distributions.  The result of adding this hyperprior layer was to shrink the resulting coefficients back toward the global mean for each parameter.  This shrinkage will be greater for the states with fewer counties providing data, preventing the coefficients from becoming too dependent on a small number of data points, and ultimately resulting in a more robust model.  In this model we see that the 
+Why yes there is a way question asker from the previous section.  Here I have built a multi-level model in which the intercepts and variable coefficients were nested under hyperprior distributions.  The result of adding this hyperprior layer was to shrink the resulting coefficients back toward the global mean for each parameter.  This shrinkage will be greater for the states with fewer counties providing data, preventing the coefficients from becoming too dependent on a small number of data points, and ultimately resulting in a more robust model.  In this model we see that the
 
 ![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/multimodel_traceplot.png)
 #### Figure 8: Probability distributions for coefficients in the multi-level linear model.
 
 ### Model Evaluation
 
-![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/commit/20175d1450a7db06be458c865ab4c0a239141bfa)
+![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/Model_score_table.png)
 #### Figure 9: Comparison of WAIC, LOO, and RMSE scores for the pooled, unpooled, and multi-level models.
 
 ### Model Interpretation
