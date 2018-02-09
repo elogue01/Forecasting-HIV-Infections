@@ -95,7 +95,7 @@ To evaluate my models I used three different scoring methods.  The first method 
 #### Figure 9: Comparison of WAIC, LOO, and RMSE scores for the pooled, unpooled, and multi-level models.
 
 ### Model Interpretation
-The true value of building a linear regression model is 
+One of the values of building a linear regression model is 
 #### HIV Prevalence
 
 ![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/hiv_prev_forestplot.png)
