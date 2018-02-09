@@ -7,6 +7,15 @@ import load_clean_data as load
 
 
 def make_levels(df, level_feature):
+    '''
+    This function makes the levels that will be used in the multi-level model.
+
+    INPUT: df - Pandas dataframe
+           level_feature - a string containing a column name from the df
+    OUTPUT: df_levels - an array containing the unique level names
+            n_levels - an INT indicating the number of unique level names
+            level - an array with the level value for each row of the df
+    '''
     df_levels = df[level_feature].unique()
     n_levels = len(df_levels)
     level_lookup = dict(zip(df_levels, range(len(df_levels))))
@@ -15,6 +24,16 @@ def make_levels(df, level_feature):
     return df_levels, n_levels, level
 
 def prep_data(df, var_cols, target_col):
+        '''
+        This function preps the observation and a standardized variable matrix.
+
+        INPUT: df - Pandas dataframe
+               var_cols - a list of strings containing column names from the df
+               target_col - a sting containing a column name from the df
+        OUTPUT: X - an np array containing a standardized variable matrix
+                y - an np array containing the target values
+        '''
+
     X = df_no_zero_outlier[var_cols].values
 
 
@@ -26,6 +45,17 @@ def prep_data(df, var_cols, target_col):
     return X, y
 
 def pooled_model(X,y):
+    '''
+    This function build a pooled model in PyMC3. This function will only work
+    with four independent variables in the X matrix.
+
+    INPUT: X - an np array containing a standardized variable matrix
+               with four variables
+           y - an np array containing the target values
+    OUTPUT: pooled_model - a PyMC3 model object
+            trace - a PyMC3 trace object
+    '''
+
     data = dict(x1=X[:,0], x2=X[:,1], x3=X[:,2], x4=X[:,3], y=y)
     with Model() as pooled_model:
     # specify glm and pass in data. The resulting linear model, its likelihood and
@@ -37,6 +67,19 @@ def pooled_model(X,y):
     return pooled_model, trace
 
 def unpooled_model(X, y, level, n_levels):
+    '''
+    This function build a unpooled model in PyMC3. This function will only work
+    with four independent variables in the X matrix.
+
+    INPUT: X - an np array containing a standardized variable matrix
+               with four variables
+           y - an np array containing the target values
+           level - an array with the level value for each row of the matrix
+           n_levels - an INT indicating the number of unique level names
+    OUTPUT: unpooled_model - a PyMC3 model object
+            unpooled_trace - a PyMC3 trace object
+    '''
+
     with Model() as unpooled_model:
 
     intercept = Normal('intercept', 0, sd=1e5, shape=n_levels)
@@ -57,7 +100,19 @@ def unpooled_model(X, y, level, n_levels):
 
 
 def multi_model(X, y, level, n_levels):
+    '''
+    This function build a unpooled model in PyMC3. This function will only work
+    with four independent variables in the X matrix.
 
+    INPUT: X - an np array containing a standardized variable matrix
+               with four variables
+           y - an np array containing the target values
+           level - an array with the level value for each row of the matrix
+           n_levels - an INT indicating the number of unique level names
+    OUTPUT: multi_model - a PyMC3 model object
+            multi_trace  - a PyMC3 trace object
+    '''
+    
     with Model() as multi_model:
     #set intercept hyper priors
     mu_intercept = Normal('mu_intercep', mu=0., sd=1e5)
