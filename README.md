@@ -95,22 +95,24 @@ To evaluate my models I used three different scoring methods.  The first method 
 #### Figure 9: Comparison of WAIC, LOO, and RMSE scores for the pooled, unpooled, and multi-level models.
 
 ### Model Interpretation
-One of the values of building a linear regression model is 
+One of the values of building a multi-level linear regression model is that we can infer from the different state level coefficients some regional differences in how HIV incidence levels are impacted by the different variables in the model.  In fact, when we look at the different coefficients in my model we can see some interesting regional differences for the US HIV epidemic.
 #### HIV Prevalence
-
+The coefficients associated with HIV prevalence indicate that it is the major driver of HIV incidence levels all over the US.  However, the 95% credible interval (CI) for these coefficients can vary widely between different states. GA and AL have coefficients where the 95% CIs fall within a range from 8.5 to 16.8 while the FL and NY have coefficients with 95% CIs that fall within 3.1 to 6.9. These coefficients demonstrate the ease in which HIV is spread from the HIV+ to the HIV- populations in different states.  Regional differences were most apparent when plotting mean coefficient levels on a map of the US.  This map demonstrates the regions in the southern US appear to be particularly problematic with regard to HIV transmission.
 ![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/hiv_prev_forestplot.png)
-#### Figure 10: Comparison of coefficients for HIV prevalence across states.
+#### Figure 10: Comparison of coefficients 95% CIs for HIV prevalence across states.
 
 ![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/prevalence_coeff_map.png)
 #### Figure 11: Mapping the mean coefficients for HIV prevalence across states.
 
 #### Percentage of population that is uninsured
-
+We also see interesting results for the coefficients associated with the % uninsured feature.  This coefficient captures how a lack of insurance might effect HIV incidence levels in counties within different states.  Here two states, FL and TX, had coefficients for this feature where the 95% CIs were greater than zero.  These significantly positive coefficients indicate that the lack of insurance is contributing to the HIV incidence level in these two states.  This finding has particular value since these are two states that did not expand medicaid following the passage of the ACA.  Our model predicts that one side benefit of expanding medicaid in these states, resulting in a lower uninsured rate, would be a reduction in HIV incidence levels.
 ![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/perc_unins_coeff_trace.png)
 #### Figure 12: Highlighting coefficient probability distributions for states where the percent uninsured has a significant positive effect on HIV incidence.
 
 #### Household income
+Finally, we can use the coefficients for the household income feature to examine how wealth and poverty impact HIV incidence in different states.  Seven states in the southern US had coefficients for this feature where the 95% CIs were all less than zero. These significantly negative coefficients indicate that increased income levels offer a much greater level of protection from HIV infection in these southern states.  These results suggest that HIV is far more a disease of poverty in the South than in other regions of the US.  
 
+The one outlier appears to be FL, which is the one state with a significantly positive coefficient for the household income feature.  This indicates that increasing wealth is in fact
 ![alt text](https://github.com/elogue01/Forecasting-HIV-Infections/blob/master/images/house_income_coeff_trace.png)
 #### Figure 13: Highlighting coefficient probability distributions for states where the household income has a significant positive or negative effect on HIV incidence.
 
